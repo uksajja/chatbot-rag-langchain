@@ -1,0 +1,32 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# OS / editor
+.DS_Store
+.vscode/
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+.conda/
+.venv/
+.env/
+
+data/
+
+
+# Vector store / embeddings persistence
+chroma_db/
+chroma/
+.chroma/
+vector_db/
+vectorstore/
+*.sqlite3
+*.faiss
+*.index
+embeddings_cache/

@@ -1,0 +1,46 @@
+[project]
+name ="imrag"
+version = "1.0.0"
+description = "Injection Molding RAG"
+readme = "README.md"
+authors = [
+    { name = "uksajja", email = "uksajja@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "numpy",
+    "scikit-learn",
+    "tiktoken",
+    "pymupdf",
+    "langchain",
+    "langchain-core",
+    "langchain-community",
+    "langchain-experimental",
+    "langchain-text-splitters",
+    "langchain-chroma",
+    "chromadb",
+    "langchain-huggingface",
+    "huggingface_hub",
+    "sentence-transformers",
+    "langchain-google-genai",
+    "google-generativeai",
+    "langchain-openai",
+    "openai",
+    "langchain-anthropic",
+    "python-dotenv",
+    "pydantic",
+    "langchain-faiss>=0.1.1",
+    "langchain-ollama>=1.1.0",
+    "faiss-cpu>=1.15.1",
+    "langchain-unstructured>=1.0.1",
+    "langchain-docling>=3.0.0",
+    "langchain-qdrant>=1.1.0",
+    "langchain-nvidia-ai-endpoints>=1.4.3",
+]
+
+[project.scripts]
+imrag = "imrag:main"
+
+[build-system]
+requires = ["uv_build>=0.12.15,<0.13.0"]
+build-backend = "uv_build"

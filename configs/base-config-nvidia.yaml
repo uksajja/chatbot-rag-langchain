@@ -1,0 +1,67 @@
+app:
+  name: imrag
+  env: dev
+
+ingestion:
+  chunk_cache: data/processed/chunks-nvidia.jsonl
+  batch_size: 300
+
+loading:
+  data_dir: data/raw
+  file_types: [pdf, docx, html, md, txt, csv]
+  recursive: true
+  on_error: skip              # skip | raise
+  loaders:                    # file extension -> loader
+    pdf:  { type: pymupdf }   # pymupdf | pypdf | unstructured | docling
+    docx: { type: docx }
+    html: { type: html }
+    md:   { type: text }
+    txt:  { type: text }
+    csv:  { type: csv }
+
+chunking:
+  type: recursive                         # recursive | fixed | semantic | spacy | nltk
+  params:
+    chunk_size: 800
+    chunk_overlap: 120
+
+embedding:
+  type: nvidia           # huggingface (BAAI/bge-base-en-v1.5) | openai (text-embedding-3-small)
+  params:
+    model: nvidia/nemotron-3-embed-1b     #nvidia/llama-nemotron-embed-1b-v2
+
+vectorstore:
+  type: chroma                 # chroma | qdrant
+  params:
+    collection_name: injection_molding_nvidia
+    persist_directory: data/processed/chroma-nvidia
+  # qdrant example:
+  # type: qdrant
+  # params: { url: "http://localhost:6333", collection_name: injection_molding_v1 }
+
+retrieval:
+  type: dense             # similarity | hybrid
+  params:
+    k: 5
+    search_type: similarity
+
+reranker:
+  type: nemotron          # cross-encoder | bi-encoder
+  params:
+    model_name: nvidia/llama-nemotron-rerank-vl-1b-v2        #llama-nemotron-rerank-1b-v2"
+    top_n: 5
+
+
+llm:
+  type: nvidia                 # openai | anthropic | ollama | vllm
+  params:
+    model: openai/gpt-oss-20b
+    temperature: 0.1
+    max_tokens: 800
+
+prompt:
+  path: configs/system_prompts.yaml
+
+
+guardrails:
+  min_sources: 1               # answer "not found" if retrieval returns fewer
