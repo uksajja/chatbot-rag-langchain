@@ -1,4 +1,4 @@
-## Injection Molding Chatbot - A RAG Based Application
+## Chatbot - A RAG Based Application
 
 ### v1.0.0
 
